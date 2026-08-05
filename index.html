@@ -15,6 +15,15 @@
     <meta property="og:description" content="Aventura náutica desde Guapi con ballenas, playas blancas, historia y naturaleza en Isla Gorgona." />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="https://guapidivers.com/logo_gd.jpeg" />
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    <!-- /Google Analytics -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -23,6 +32,13 @@
     />
     <link rel="icon" type="image/jpeg" href="logo_gd.jpeg" />
     <link rel="stylesheet" href="styles.css" />
+    <style>
+      .lang-switcher { display: inline-flex; gap: 0.4rem; align-items: center; }
+      .lang-btn { min-width: 2.5rem; padding: 0.45rem 0.75rem; border-radius: 999px; border: 1px solid rgba(255,255,255,.55); background: transparent; color: inherit; cursor: pointer; font-weight: 600; transition: background .2s ease, color .2s ease; }
+      .lang-btn.active { background: rgba(255,255,255,.95); color: #0d6f8f; }
+      .lang-btn:hover { background: rgba(255,255,255,.75); }
+      @media (max-width: 640px) { .lang-switcher { margin-top: 0.75rem; } }
+    </style>
   </head>
   <body>
     <header class="hero">
@@ -35,6 +51,10 @@
           <a href="#experiencia">Experiencia</a>
           <a href="#itinerario">Itinerario</a>
           <a href="#reservas">Reservas</a>
+        </div>
+        <div class="lang-switcher">
+          <button type="button" class="lang-btn active" data-lang="es">ES</button>
+          <button type="button" class="lang-btn" data-lang="en">EN</button>
         </div>
       </nav>
 
@@ -261,6 +281,58 @@
               Reservar ahora por WhatsApp
             </a>
           </div>
+          <div class="contact-card">
+            <h3>Reserva tu fecha</h3>
+            <form id="booking-form" class="contact-form">
+              <div id="booking-calendar-section">
+                <div class="calendar-panel">
+                  <div class="calendar-header">
+                    <button type="button" class="calendar-nav" id="prev-month" aria-label="Mes anterior">‹</button>
+                    <div class="calendar-title" id="calendar-title"></div>
+                    <button type="button" class="calendar-nav" id="next-month" aria-label="Mes siguiente">›</button>
+                  </div>
+                  <div class="calendar-weekdays">
+                    <span>Lun</span>
+                    <span>Mar</span>
+                    <span>Mié</span>
+                    <span>Jue</span>
+                    <span>Vie</span>
+                    <span>Sáb</span>
+                    <span>Dom</span>
+                  </div>
+                  <div class="calendar-grid" id="calendar-grid"></div>
+                </div>
+
+                <p class="note" id="booking-note">Selecciona inicio y fin. La fecha final no puede ser anterior a la inicial.</p>
+              </div>
+
+              <div class="booking-range-summary">
+                <p>Fecha inicio: <strong id="booking-start-display">—</strong></p>
+                <p>Fecha fin: <strong id="booking-end-display">—</strong></p>
+                <button type="button" id="change-dates-btn" class="btn btn-secondary hidden">Cambiar fechas</button>
+              </div>
+
+              <input type="hidden" id="booking-start" name="booking-start">
+              <input type="hidden" id="booking-end" name="booking-end">
+
+              <div id="booking-form-fields" class="hidden">
+                <div class="form-row">
+                  <label for="booking-name">Nombre completo</label>
+                  <input type="text" id="booking-name" name="booking-name" placeholder="Tu nombre" required>
+                </div>
+                <div class="form-row">
+                  <label for="booking-email">Correo electrónico</label>
+                  <input type="email" id="booking-email" name="booking-email" placeholder="correo@ejemplo.com" required>
+                </div>
+                <div class="form-row">
+                  <label for="booking-phone">Celular</label>
+                  <input type="tel" id="booking-phone" name="booking-phone" placeholder="+57 300 000 0000" required>
+                </div>
+                <button type="submit" class="btn btn-primary submit-button">Enviar solicitud</button>
+              </div>
+              <p id="booking-success" class="form-success hidden" aria-live="polite"></p>
+            </form>
+          </div>
           <div class="contact-card contact-card-cta">
             <h3>Reserva rápida</h3>
             <p>Escribe por WhatsApp y te responderemos con disponibilidad, horarios y detalles del viaje.</p>
@@ -300,9 +372,23 @@
 
     <footer class="footer">
       <div class="container footer-content">
-        <p>© 2026 Guapi Divers. Turismo desde Guapi a la Isla Gorgona.</p>
-        <p class="design-credit">Diseñado por EnzoNet</p>
-        <a href="#inicio">Volver arriba</a>
+        <div class="footer-left">
+          <p class="footer-meta">© 2026 Guapi Divers. Turismo desde Guapi a la Isla Gorgona.</p>
+          <p class="footer-contact">
+            <span>Contacto:</span>
+            <span class="footer-email-text">diversguapi@gmail.com</span>
+            <button type="button" class="copy-email-btn" data-email="diversguapi@gmail.com" aria-label="Copiar correo">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M16 1H4.994C3.892 1 3 1.897 3 3v14c0 1.103.892 2 1.994 2H8v-2H4.994a.995.995 0 0 1-.994-1V3c0-.552.448-1 1-1H16v4h4v14h-4v2h4c1.103 0 2-.897 2-2V5l-6-4zm-1 4H9c-.552 0-1 .448-1 1v13c0 .552.448 1 1 1h8c.552 0 1-.448 1-1V8l-3-3zM9 5h4v4H9V5zm.5 5.5l1.5 1.5 3-3L14.5 8l-3 3-1-1z"/>
+              </svg>
+              <span class="sr-only">Copiar correo electrónico</span>
+            </button>
+          </p>
+        </div>
+        <div class="footer-right">
+          <p class="design-credit">Diseñado por EnzoNet</p>
+          <a href="#inicio">Volver arriba</a>
+        </div>
       </div>
     </footer>
 
@@ -311,5 +397,335 @@
         <path d="M12.04 2.52A9.52 9.52 0 0 0 2.52 12a9.48 9.48 0 0 0 1.34 4.89L2 22l5.27-1.37A9.56 9.56 0 0 0 12 22.48h.01a9.52 9.52 0 0 0 9.52-9.52A9.52 9.52 0 0 0 12.04 2.52Zm5.2 13.76c-.22.62-.9 1.11-1.54 1.28-.4.1-.88.18-2.68-.57-2.27-.76-3.73-2.59-3.85-2.72-.12-.13-.98-1.31-.98-2.49 0-1.18.62-1.76.84-2.01a.67.67 0 0 1 .46-.19h.32c.14 0 .27.06.35.18l1.07 1.6c.07.11.13.24.13.39 0 .15-.05.31-.15.42l-.51.62c-.08.1-.12.23-.1.36.03.1.18.32.43.61.51.61 1.05 1.12 1.6 1.49.13.09.27.14.4.08l.73-.33a.68.68 0 0 1 .4-.05c.12 0 .22.03.31.11l1.3 1.03c.11.09.19.2.21.36.02.16-.03.29-.12.39Z" fill="currentColor"/>
       </svg>
     </a>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const copyBtn = document.querySelector('.copy-email-btn');
+        if (copyBtn) {
+          copyBtn.addEventListener('click', async () => {
+            const email = copyBtn.dataset.email;
+            try {
+              await navigator.clipboard.writeText(email);
+              copyBtn.classList.add('copied');
+              copyBtn.setAttribute('aria-label', 'Correo copiado');
+              setTimeout(() => {
+                copyBtn.classList.remove('copied');
+                copyBtn.setAttribute('aria-label', 'Copiar correo');
+              }, 2000);
+            } catch (error) {
+              window.location.href = `mailto:${email}`;
+            }
+          });
+        }
+
+        const bookingFormFields = document.getElementById('booking-form-fields');
+        const bookingForm = document.getElementById('booking-form');
+        const bookingSuccess = document.getElementById('booking-success');
+        const bookingStartInput = document.getElementById('booking-start');
+        const bookingEndInput = document.getElementById('booking-end');
+        const bookingStartDisplay = document.getElementById('booking-start-display');
+        const bookingEndDisplay = document.getElementById('booking-end-display');
+        const bookingCalendarSection = document.getElementById('booking-calendar-section');
+        const bookingNote = document.getElementById('booking-note');
+        const changeDatesBtn = document.getElementById('change-dates-btn');
+        const calendarGrid = document.getElementById('calendar-grid');
+        const calendarTitle = document.getElementById('calendar-title');
+        const prevMonthBtn = document.getElementById('prev-month');
+        const nextMonthBtn = document.getElementById('next-month');
+
+        const today = new Date();
+        let selectedStart = null;
+        let selectedEnd = null;
+        let currentMonth = today.getMonth();
+        let currentYear = today.getFullYear();
+
+        function formatDate(date) {
+          return date.toISOString().split('T')[0];
+        }
+
+        function formatDisplay(date) {
+          return date.toLocaleDateString('es-CO', { day: '2-digit', month: 'short', year: 'numeric' });
+        }
+
+        function renderCalendar(month, year) {
+          calendarGrid.innerHTML = '';
+          const firstDay = new Date(year, month, 1);
+          const lastDay = new Date(year, month + 1, 0);
+          const titleMonth = firstDay.toLocaleDateString('es-CO', { month: 'long', year: 'numeric' });
+          calendarTitle.textContent = titleMonth;
+
+          const startDayOfWeek = (firstDay.getDay() + 6) % 7;
+          for (let i = 0; i < startDayOfWeek; i += 1) {
+            const emptyCell = document.createElement('span');
+            calendarGrid.appendChild(emptyCell);
+          }
+
+          for (let day = 1; day <= lastDay.getDate(); day += 1) {
+            const date = new Date(year, month, day);
+            const dateValue = formatDate(date);
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'calendar-day';
+            button.textContent = day;
+            button.dataset.date = dateValue;
+
+            if (date < new Date(today.getFullYear(), today.getMonth(), today.getDate())) {
+              button.classList.add('disabled');
+              button.disabled = true;
+            }
+
+            if (selectedStart && selectedStart.getTime() === date.getTime()) {
+              button.classList.add('selected', 'start');
+            }
+            if (selectedEnd && selectedEnd.getTime() === date.getTime()) {
+              button.classList.add('selected', 'end');
+            }
+            if (selectedStart && selectedEnd && date > selectedStart && date < selectedEnd) {
+              button.classList.add('in-range');
+            }
+
+            button.addEventListener('click', () => {
+              if (!selectedStart || (selectedStart && selectedEnd)) {
+                selectedStart = date;
+                selectedEnd = null;
+              } else {
+                if (date < selectedStart) {
+                  selectedEnd = selectedStart;
+                  selectedStart = date;
+                } else {
+                  selectedEnd = date;
+                }
+              }
+              updateRange();
+              renderCalendar(currentMonth, currentYear);
+            });
+
+            calendarGrid.appendChild(button);
+          }
+        }
+
+        function updateRange() {
+          if (selectedStart) {
+            bookingStartInput.value = formatDate(selectedStart);
+            bookingStartDisplay.textContent = formatDisplay(selectedStart);
+          } else {
+            bookingStartInput.value = '';
+            bookingStartDisplay.textContent = '—';
+          }
+
+          if (selectedEnd) {
+            bookingEndInput.value = formatDate(selectedEnd);
+            bookingEndDisplay.textContent = formatDisplay(selectedEnd);
+          } else {
+            bookingEndInput.value = '';
+            bookingEndDisplay.textContent = '—';
+          }
+
+          if (selectedStart && selectedEnd) {
+            bookingFormFields.classList.remove('hidden');
+            bookingSuccess.classList.add('hidden');
+            bookingCalendarSection.classList.add('hidden');
+            if (changeDatesBtn) changeDatesBtn.classList.remove('hidden');
+            if (bookingNote) bookingNote.classList.add('hidden');
+          } else {
+            bookingFormFields.classList.add('hidden');
+            bookingCalendarSection.classList.remove('hidden');
+            if (changeDatesBtn) changeDatesBtn.classList.add('hidden');
+            if (bookingNote) bookingNote.classList.remove('hidden');
+          }
+        }
+
+        if (changeDatesBtn) {
+          changeDatesBtn.addEventListener('click', () => {
+            selectedStart = null;
+            selectedEnd = null;
+            bookingStartInput.value = '';
+            bookingEndInput.value = '';
+            bookingStartDisplay.textContent = '—';
+            bookingEndDisplay.textContent = '—';
+            bookingFormFields.classList.add('hidden');
+            bookingCalendarSection.classList.remove('hidden');
+            if (changeDatesBtn) changeDatesBtn.classList.add('hidden');
+            if (bookingNote) bookingNote.classList.remove('hidden');
+            renderCalendar(currentMonth, currentYear);
+          });
+        }
+
+        function adjustMonth(delta) {
+          currentMonth += delta;
+          if (currentMonth < 0) {
+            currentMonth = 11;
+            currentYear -= 1;
+          } else if (currentMonth > 11) {
+            currentMonth = 0;
+            currentYear += 1;
+          }
+          renderCalendar(currentMonth, currentYear);
+        }
+
+        if (calendarGrid && calendarTitle && prevMonthBtn && nextMonthBtn) {
+          renderCalendar(currentMonth, currentYear);
+          prevMonthBtn.addEventListener('click', () => adjustMonth(-1));
+          nextMonthBtn.addEventListener('click', () => adjustMonth(1));
+        }
+
+        if (bookingForm) {
+          bookingForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const start = bookingStartInput?.value;
+            const end = bookingEndInput?.value;
+            const name = document.getElementById('booking-name')?.value.trim();
+            const email = document.getElementById('booking-email')?.value.trim();
+            const phone = document.getElementById('booking-phone')?.value.trim();
+            if (!start || !end || !name || !email || !phone) return;
+            if (bookingSuccess) {
+              bookingSuccess.textContent = `Solicitud registrada del ${bookingStartDisplay.textContent} al ${bookingEndDisplay.textContent}. Nos contactaremos pronto.`;
+              bookingSuccess.classList.remove('hidden');
+            }
+            bookingForm.reset();
+            selectedStart = null;
+            selectedEnd = null;
+            updateRange();
+            if (bookingCalendarSection) bookingCalendarSection.classList.remove('hidden');
+            if (changeDatesBtn) changeDatesBtn.classList.add('hidden');
+            renderCalendar(currentMonth, currentYear);
+          });
+        }
+      });
+      const translations = {
+        es: {
+          'nav-experiencia': 'Experiencia',
+          'nav-itinerario': 'Itinerario',
+          'nav-reservas': 'Reservas',
+          'eyebrow-hero': 'Turismo náutico y natural',
+          'hero-title': 'Vive un día mágico de Guapi a la Isla Gorgona',
+          'hero-text': 'Embárcate en una aventura única para observar ballenas, recorrer la historia de la isla, disfrutar de sus playas blancas y conectar con la naturaleza.',
+          'btn-book': 'Reservar ahora',
+          'btn-learn': 'Conocer más',
+          'hero-highlight-1': 'Ballenas',
+          'hero-highlight-2': 'Playas blancas',
+          'hero-highlight-3': 'Historia',
+          'hero-include': '¿Qué incluye?',
+          'include-1': 'Traslado desde Guapi',
+          'include-2': 'Guía local experto',
+          'include-3': 'Vista de ballenas y fauna',
+          'include-4': 'Tiempo en playas y sitios turísticos',
+          'section-experience-eyebrow': 'Una experiencia inolvidable',
+          'section-experience-title': 'Descubre la isla y su ecosistema',
+          'card-ocean-title': 'Ballenas en su hábitat',
+          'card-ocean-text': 'Disfruta de una experiencia de observación marina en un entorno natural privilegiado.',
+          'card-history-title': 'Historia y cultura',
+          'card-history-text': 'Conoce la prisión y el legado histórico que hace especial a la isla.',
+          'card-beach-title': 'Playas blancas',
+          'card-beach-text': 'Relájate en aguas cristalinas, arenas blancas y paisajes que parecen sacados de un sueño.',
+          'footer-copy': '© 2026 Guapi Divers. Turismo desde Guapi a la Isla Gorgona.',
+          'reservation-title': 'Haz de este día una experiencia única',
+          'reservation-copy': 'Vive una salida completa con guía local, traslado desde Guapi y tiempo para disfrutar de las playas, la fauna y la historia de la isla.',
+          'whatsapp-book': 'Reservar ahora por WhatsApp',
+          'step-1-title': 'Escríbenos por WhatsApp',
+          'step-1-text': 'Indícanos la fecha, el número de personas y si necesitas ayuda con la salida desde Guapi.',
+          'step-2-title': 'Confirma tu cupo',
+          'step-2-text': 'Te responderemos con disponibilidad, horarios y todos los detalles para que viajes tranquilo.',
+          'step-3-title': 'Disfruta la aventura',
+          'step-3-text': 'Prepárate para vivir un día completo entre ballenas, playas, historia y naturaleza.',
+        },
+        en: {
+          'nav-experiencia': 'Experience',
+          'nav-itinerario': 'Itinerary',
+          'nav-reservas': 'Bookings',
+          'eyebrow-hero': 'Nautical and natural tourism',
+          'hero-title': 'Live a magical day from Guapi to Gorgona Island',
+          'hero-text': 'Embark on a unique adventure to watch whales, explore the island’s history, enjoy its white beaches, and connect with nature.',
+          'btn-book': 'Book now',
+          'btn-learn': 'Learn more',
+          'hero-highlight-1': 'Whales',
+          'hero-highlight-2': 'White beaches',
+          'hero-highlight-3': 'History',
+          'hero-include': 'What is included?',
+          'include-1': 'Transfer from Guapi',
+          'include-2': 'Expert local guide',
+          'include-3': 'Whale and wildlife sightings',
+          'include-4': 'Time on beaches and tourist sites',
+          'section-experience-eyebrow': 'An unforgettable experience',
+          'section-experience-title': 'Discover the island and its ecosystem',
+          'card-ocean-title': 'Whales in their habitat',
+          'card-ocean-text': 'Enjoy a marine-watching experience in a privileged natural setting.',
+          'card-history-title': 'History and culture',
+          'card-history-text': 'Visit the prison and the historical legacy that makes the island special.',
+          'card-beach-title': 'White beaches',
+          'card-beach-text': 'Relax in crystal-clear waters, white sands, and landscapes that seem dreamlike.',
+          'footer-copy': '© 2026 Guapi Divers. Tours from Guapi to Gorgona Island.',
+          'footer-up': 'Back to top',
+          'reservation-title': 'Make this day a unique experience',
+          'reservation-copy': 'Enjoy a complete outing with a local guide, transfer from Guapi, and time to enjoy beaches, wildlife, and island history.',
+          'whatsapp-book': 'Book now on WhatsApp',
+          'step-1-title': 'Message us on WhatsApp',
+          'step-1-text': 'Tell us the date, number of people, and if you need help with departure from Guapi.',
+          'step-2-title': 'Confirm your spot',
+          'step-2-text': 'We will reply with availability, schedules, and all the details so you can travel with confidence.',
+          'step-3-title': 'Enjoy the adventure',
+          'step-3-text': 'Get ready to live a full day among whales, beaches, history, and nature.',
+        },
+      };
+
+      const elements = {
+        'nav-experiencia': document.querySelector('a[href="#experiencia"]'),
+        'nav-itinerario': document.querySelector('a[href="#itinerario"]'),
+        'nav-reservas': document.querySelector('a[href="#reservas"]'),
+        'eyebrow-hero': document.querySelector('.hero-copy .eyebrow'),
+        'hero-title': document.querySelector('.hero-copy h1'),
+        'hero-text': document.querySelector('.hero-copy .hero-text'),
+        'btn-book': document.querySelector('.hero-actions .btn-primary'),
+        'btn-learn': document.querySelector('.hero-actions .btn-secondary'),
+        'hero-highlight-1': document.querySelector('.hero-highlights span:nth-child(1)'),
+        'hero-highlight-2': document.querySelector('.hero-highlights span:nth-child(2)'),
+        'hero-highlight-3': document.querySelector('.hero-highlights span:nth-child(3)'),
+        'hero-include': document.querySelector('.hero-card h2'),
+        'include-1': document.querySelector('.hero-card ul li:nth-child(1)'),
+        'include-2': document.querySelector('.hero-card ul li:nth-child(2)'),
+        'include-3': document.querySelector('.hero-card ul li:nth-child(3)'),
+        'include-4': document.querySelector('.hero-card ul li:nth-child(4)'),
+        'section-experience-eyebrow': document.querySelector('#experiencia .eyebrow'),
+        'section-experience-title': document.querySelector('#experiencia h2'),
+        'card-ocean-title': document.querySelector('.card-ocean h3'),
+        'card-ocean-text': document.querySelector('.card-ocean p'),
+        'card-history-title': document.querySelector('.card-history h3'),
+        'card-history-text': document.querySelector('.card-history p'),
+        'card-beach-title': document.querySelector('.card-beach h3'),
+        'card-beach-text': document.querySelector('.card-beach p'),
+        'footer-copy': document.querySelector('.footer-content p:first-child'),
+        'footer-up': document.querySelector('.footer-content a'),
+        'reservation-title': document.querySelector('.booking-copy h2'),
+        'reservation-copy': document.querySelector('.booking-copy p'),
+        'whatsapp-book': document.querySelector('.booking-copy .btn-primary'),
+        'step-1-title': document.querySelector('.steps-grid article:nth-child(1) h3'),
+        'step-1-text': document.querySelector('.steps-grid article:nth-child(1) p'),
+        'step-2-title': document.querySelector('.steps-grid article:nth-child(2) h3'),
+        'step-2-text': document.querySelector('.steps-grid article:nth-child(2) p'),
+        'step-3-title': document.querySelector('.steps-grid article:nth-child(3) h3'),
+        'step-3-text': document.querySelector('.steps-grid article:nth-child(3) p'),
+      };
+
+      function setLanguage(lang) {
+        if (!translations[lang]) return;
+        document.documentElement.lang = lang;
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+          btn.classList.toggle('active', btn.dataset.lang === lang);
+        });
+        Object.keys(elements).forEach(key => {
+          const el = elements[key];
+          if (!el) return;
+          el.textContent = translations[lang][key] || el.textContent;
+        });
+        localStorage.setItem('site-language', lang);
+      }
+
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
+      });
+
+      const savedLang = localStorage.getItem('site-language');
+      const browserLang = navigator.language?.slice(0, 2) || 'es';
+      setLanguage(savedLang || (['es', 'en'].includes(browserLang) ? browserLang : 'es'));
+    </script>
   </body>
 </html>
