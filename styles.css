@@ -1024,12 +1024,19 @@ input:focus {
 .photo-modal-inner {
   overflow: hidden;
   background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 55vh;
 }
 
 .photo-modal-inner img {
-  width: 100%;
+  width: auto;
+  max-width: 100%;
   height: auto;
+  max-height: 80vh;
   display: block;
+  object-fit: contain;
 }
 
 .modal-nav {
