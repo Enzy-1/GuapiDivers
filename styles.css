@@ -1137,6 +1137,7 @@ select,
 .footer {
   color: var(--white);
   padding: 1.2rem 0;
+  background: linear-gradient(135deg, var(--sea-blue), var(--sea-teal));
 }
 
 .footer-content {
