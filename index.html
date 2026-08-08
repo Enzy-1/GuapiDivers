@@ -138,6 +138,42 @@
         </div>
       </section>
 
+      <section class="section container" id="galeria">
+        <div class="section-heading">
+          <p class="eyebrow">Galería</p>
+          <h2>Imágenes reales de nuestra ruta</h2>
+        </div>
+        <div class="gallery-grid">
+          <button type="button" class="photo-card" data-src="img/WhatsApp Image 2026-08-07 at 1.10.41 PM.jpeg" data-alt="Playa soleada de Guapi">
+            <img src="img/WhatsApp Image 2026-08-07 at 1.10.41 PM.jpeg" alt="Playa soleada de Guapi" />
+          </button>
+          <button type="button" class="photo-card" data-src="img/WhatsApp Image 2026-08-07 at 1.14.15 PM.jpeg" data-alt="Cartel de bienvenida a Gorgona y mono carpín blanco">
+            <img src="img/WhatsApp Image 2026-08-07 at 1.14.15 PM.jpeg" alt="Cartel de bienvenida a Gorgona y mono carpín blanco" />
+          </button>
+          <button type="button" class="photo-card" data-src="img/WhatsApp Image 2026-08-07 at 1.14.38 PM.jpeg" data-alt="Cartel de Parque Nacional Natural Gorgona">
+            <img src="img/WhatsApp Image 2026-08-07 at 1.14.38 PM.jpeg" alt="Cartel de Parque Nacional Natural Gorgona" />
+          </button>
+          <button type="button" class="photo-card" data-src="img/WhatsApp Image 2026-08-07 at 1.16.21 PM.jpeg" data-alt="Bote en aguas cristalinas de Gorgona">
+            <img src="img/WhatsApp Image 2026-08-07 at 1.16.21 PM.jpeg" alt="Bote en aguas cristalinas de Gorgona" />
+          </button>
+          <button type="button" class="photo-card" data-src="img/WhatsApp Video 2026-08-07 at 1.33.42 PM.gif" data-alt="Ballena en el mar" data-is-gif="true">
+            <img src="img/WhatsApp Video 2026-08-07 at 1.33.42 PM.gif" alt="Ballena en el mar" />
+          </button>
+        </div>
+      </section>
+
+      <div id="photo-modal" class="photo-modal hidden" aria-hidden="true" role="dialog" aria-modal="true">
+        <div class="photo-modal-backdrop"></div>
+        <div class="photo-modal-content">
+          <button type="button" class="modal-close" aria-label="Cerrar imagen">×</button>
+          <button type="button" class="modal-nav modal-prev" aria-label="Imagen anterior">‹</button>
+          <button type="button" class="modal-nav modal-next" aria-label="Siguiente imagen">›</button>
+          <div class="photo-modal-inner">
+            <img id="modal-photo" src="" alt="Imagen ampliada" />
+          </div>
+        </div>
+      </div>
+
       <section class="section container" id="beneficios">
         <div class="section-heading">
           <p class="eyebrow">Por qué elegirnos</p>
@@ -590,6 +626,92 @@
             renderCalendar(currentMonth, currentYear);
           });
         }
+
+        const galleryContainer = document.querySelector('.gallery-grid');
+        const galleryCards = Array.from(document.querySelectorAll('.photo-card'));
+        const photoModal = document.getElementById('photo-modal');
+        const modalPhoto = document.getElementById('modal-photo');
+        const modalClose = document.querySelector('.modal-close');
+        const modalPrev = document.querySelector('.modal-prev');
+        const modalNext = document.querySelector('.modal-next');
+        let currentGalleryIndex = 0;
+
+        function updateModalPhoto(index) {
+          if (!photoModal || !modalPhoto || galleryCards.length === 0) return;
+          currentGalleryIndex = (index + galleryCards.length) % galleryCards.length;
+          const card = galleryCards[currentGalleryIndex];
+          const src = card.dataset.src;
+          const alt = card.dataset.alt || card.querySelector('img')?.alt || 'Imagen';
+          modalPhoto.src = src;
+          modalPhoto.alt = alt;
+        }
+
+        function openPhotoAt(index) {
+          updateModalPhoto(index);
+          if (!photoModal) return;
+          photoModal.classList.remove('hidden');
+          photoModal.style.display = 'grid';
+          photoModal.setAttribute('aria-hidden', 'false');
+          document.body.style.overflow = 'hidden';
+        }
+
+        function closePhoto() {
+          if (!photoModal) return;
+          photoModal.classList.add('hidden');
+          photoModal.style.display = 'none';
+          photoModal.setAttribute('aria-hidden', 'true');
+          document.body.style.overflow = '';
+        }
+
+        function showPreviousPhoto() {
+          openPhotoAt(currentGalleryIndex - 1);
+        }
+
+        function showNextPhoto() {
+          openPhotoAt(currentGalleryIndex + 1);
+        }
+
+        if (galleryContainer) {
+          galleryContainer.addEventListener('click', (event) => {
+            const card = event.target.closest('.photo-card');
+            if (!card) return;
+            const index = galleryCards.indexOf(card);
+            if (index >= 0) openPhotoAt(index);
+          });
+        }
+
+        if (modalClose) {
+          modalClose.addEventListener('click', closePhoto);
+        }
+
+        if (modalPrev) {
+          modalPrev.addEventListener('click', (event) => {
+            event.stopPropagation();
+            showPreviousPhoto();
+          });
+        }
+
+        if (modalNext) {
+          modalNext.addEventListener('click', (event) => {
+            event.stopPropagation();
+            showNextPhoto();
+          });
+        }
+
+        if (photoModal) {
+          photoModal.addEventListener('click', (event) => {
+            if (event.target === photoModal || event.target.classList.contains('photo-modal-backdrop')) {
+              closePhoto();
+            }
+          });
+        }
+
+        document.addEventListener('keydown', (event) => {
+          if (!photoModal || photoModal.classList.contains('hidden')) return;
+          if (event.key === 'ArrowLeft') showPreviousPhoto();
+          if (event.key === 'ArrowRight') showNextPhoto();
+          if (event.key === 'Escape') closePhoto();
+        });
       });
       const translations = {
         es: {
