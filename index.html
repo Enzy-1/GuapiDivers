@@ -225,55 +225,6 @@
         </div>
       </section>
 
-      <section class="section container" id="testimonios">
-        <div class="section-heading">
-          <p class="eyebrow">Lo que dicen nuestros viajeros</p>
-          <h2>Historias reales de una experiencia inolvidable</h2>
-        </div>
-        <div class="testimonials">
-          <article class="testimonial-card testimonial-card-main">
-            <div class="stars">★★★★★</div>
-            <p>“La experiencia fue mágica desde el amanecer. Ver ballenas y disfrutar de las playas blancas fue increíble.”</p>
-            <strong>— Laura M.</strong>
-          </article>
-          <article class="testimonial-card testimonial-card-alt">
-            <div class="stars">★★★★★</div>
-            <p>“Muy bien organizada, la guía fue excelente y el recorrido por la isla fue espectacular.”</p>
-            <strong>— Carlos R.</strong>
-          </article>
-          <article class="testimonial-card testimonial-card-soft">
-            <div class="stars">★★★★★</div>
-            <p>“Un paseo perfecto para desconectar y vivir algo único en la naturaleza.”</p>
-            <strong>— Andrea P.</strong>
-          </article>
-        </div>
-      </section>
-
-      <section class="section container" id="curiosidades">
-        <div class="section-heading">
-          <p class="eyebrow">Curiosidades de la isla</p>
-          <h2>Conoce algunos datos fascinantes de Isla Gorgona</h2>
-        </div>
-        <div class="facts-grid">
-          <article class="fact-card fact-card-history">
-            <h3>Un lugar histórico</h3>
-            <p>La isla fue conocida por su antigua prisión, un símbolo de su pasado y parte de su identidad cultural.</p>
-          </article>
-          <article class="fact-card fact-card-marine">
-            <h3>Fauna marina única</h3>
-            <p>Es un sitio privilegiado para observar ballenas, tortugas y una gran variedad de aves marinas.</p>
-          </article>
-          <article class="fact-card fact-card-beach">
-            <h3>Playas de aguas cristalinas</h3>
-            <p>Sus costas cuentan con playas blancas y aguas transparentes ideales para disfrutar del paisaje.</p>
-          </article>
-          <article class="fact-card fact-card-nature">
-            <h3>Reserva natural</h3>
-            <p>La isla es un refugio natural que combina historia, biodiversidad y paisajes de gran belleza.</p>
-          </article>
-        </div>
-      </section>
-
       <section class="section alt-section" id="itinerario">
         <div class="container">
           <div class="section-heading">
@@ -282,20 +233,32 @@
           </div>
           <div class="timeline">
             <div class="timeline-item timeline-item-start">
-              <h3>6:30 AM</h3>
-              <p>Madrugada en el muelle Los Aguiño en Guapi, inicio de la salida.</p>
+              <div class="timeline-time">6:30 AM</div>
+              <div class="timeline-content">
+                <h3>Salida</h3>
+                <p>Madrugada en el muelle Los Aguiño en Guapi, inicio de la salida.</p>
+              </div>
             </div>
             <div class="timeline-item timeline-item-arrival">
-              <h3>8:00 AM</h3>
-              <p>Llegada a la Isla Gorgona para comenzar el recorrido por la isla.</p>
+              <div class="timeline-time">8:00 AM</div>
+              <div class="timeline-content">
+                <h3>Llegada</h3>
+                <p>Llegada a la Isla Gorgona para comenzar el recorrido por la isla.</p>
+              </div>
             </div>
             <div class="timeline-item timeline-item-activity">
-              <h3>12:30 PM</h3>
-              <p>Visita a los atractivos de la isla, playas y áreas naturales.</p>
+              <div class="timeline-time">12:30 PM</div>
+              <div class="timeline-content">
+                <h3>Recorrido</h3>
+                <p>Visita a los atractivos de la isla, playas y áreas naturales.</p>
+              </div>
             </div>
             <div class="timeline-item timeline-item-return">
-              <h3>4:30 PM</h3>
-              <p>Retorno a Guapi con recuerdos inolvidables y fotos del día.</p>
+              <div class="timeline-time">4:30 PM</div>
+              <div class="timeline-content">
+                <h3>Retorno</h3>
+                <p>Retorno a Guapi con recuerdos inolvidables y fotos del día.</p>
+              </div>
             </div>
           </div>
         </div>
@@ -304,9 +267,11 @@
       <section class="section container" id="reservas">
         <div class="include-grid">
           <div class="include-card include-card-main">
-            <p class="eyebrow">Incluye</p>
-            <h3>Todo lo necesario para un día completo</h3>
-            <ul>
+            <div class="include-header">
+              <p class="eyebrow include-tag">Incluye</p>
+              <h3>Todo lo necesario para un día completo</h3>
+            </div>
+            <ul class="include-list include-list-positive">
               <li>Traslado desde Guapi</li>
               <li>Guía local y acompañamiento</li>
               <li>Tiempo en playas y sitios turísticos</li>
@@ -314,9 +279,11 @@
             </ul>
           </div>
           <div class="include-card include-card-side">
-            <p class="eyebrow">No incluye</p>
-            <h3>Tenlo en cuenta antes de viajar</h3>
-            <ul>
+            <div class="include-header">
+              <p class="eyebrow include-tag include-tag-muted">No incluye</p>
+              <h3>Tenlo en cuenta antes de viajar</h3>
+            </div>
+            <ul class="include-list include-list-negative">
               <li>Alimentos y bebidas</li>
               <li>Gastos personales</li>
               <li>Transporte adicional fuera del recorrido</li>
@@ -345,7 +312,7 @@
             </a>
           </div>
           <div class="contact-card">
-            <h3>Reserva tu fecha</h3>
+            <h3 class="booking-heading">Reserva tu fecha</h3>
             <form id="booking-form" class="contact-form">
               <div id="booking-calendar-section">
                 <div class="calendar-panel">
